@@ -1,6 +1,3 @@
-SELECT *
-FROM video_games_sales;
-
 # What was the most popular genre in North America FROM 2015 to  2020
 SELECT genre, SUM(na_sales) as sum_of_sales
 FROM video_games_sales
@@ -74,7 +71,8 @@ FROM video_games_sales
 WHERE genre = 'Role-Playing'
 AND platform IN ('PS3', 'Wii', 'X360');
 
-# Compare the sum of the total global_sales between Nintendo and Take-Two-Interactive from 2015 to 2020
+
+  # Compare the sum of the total global_sales between Nintendo and Take-Two-Interactive from 2015 to 2020
 SELECT
 publisher,
 global_sales,
