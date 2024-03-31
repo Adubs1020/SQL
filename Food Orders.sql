@@ -1,6 +1,3 @@
-SELECT *
-FROM food_order;
-
 #List the top 5 restaurants with the most 5 star ratings
 SELECT restaurant_name, COUNT(rating) as num_of_ratings
 FROM food_order
