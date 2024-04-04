@@ -6,7 +6,7 @@ GROUP BY genre
 ORDER BY sum_of_sales DESC
 LIMIT 1;
 
-# results: Shooters was the most popular genre from 2015 to 2020
+# results: Shooters was the most popular genre from 2015 to 2020 in North America
 
 
 # List the top two publishers that published the most Sports games FROM 2010 to 2020
