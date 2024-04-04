@@ -70,7 +70,7 @@ DENSE_RANK() OVER(PARTITION BY platform ORDER BY global_sales DESC) AS ranking
 FROM video_games_sales
 WHERE year BETWEEN 2016 AND 2020;
 
-#result:  Top ranked game by plaform based on global sales
+#result:  Top ranked games by plaform based on global sales
 # 3DS: Yokai Watch 3
 # PC:  Overwatch
 # PS3: FIFA 17
