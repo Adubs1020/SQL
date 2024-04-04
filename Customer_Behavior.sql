@@ -22,7 +22,7 @@ ORDER BY num_of_customers DESC;
 
 #result: Most of these customers prefer to pay with venmo
 
-#List the customers whose preferred payment method is Venmo, who frequently purchased items weekly and have 50 prior transactions. 
+#List the customers whose preferred payment method is Venmo, who frequently purchased items weekly, and who have previously purchased 50 items. 
 SELECT *
 FROM shopping_behavior_updated
 WHERE `Customer ID` in 
