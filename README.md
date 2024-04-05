@@ -2,7 +2,7 @@ Alex's Portfolio
 
 Portfolio Overview
 
-This portfolio contains three exploratory data analysis projects. I downloaded each of the datasets from Kaggle, and I used MYSQL to query the data. For each of the projects, I created ten questions to develop a comprehensive understading of the data. These projects demonstrate my knowledge in various SQL topics such as aggregations, joins, subquerie and window functions.
+This portfolio contains three exploratory data analysis projects. I downloaded each of the datasets from Kaggle, and I used MYSQL to query the data. For each of the projects, I created ten questions to develop a comprehensive understanding of the data. These projects demonstrate my knowledge of various SQL topics such as aggregations, joins, subqueries, and window functions.
 
 Links
 
