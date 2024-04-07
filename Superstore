@@ -42,7 +42,7 @@ SELECT MAX(price)
 FROM superstore; 
 
 
-#Wrote a query to find the total price of the items in the Kitchen Supplies category
+#Wrote a query to find the total price of the items in the Kitchen Supplies category.
 SELECT SUM(price)
 FROM superstore
 WHERE category = 'Kitchen Supplies';
