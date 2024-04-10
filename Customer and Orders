@@ -52,3 +52,43 @@ GROUP BY product;
 
 
 
+#7. List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT 
+product,
+SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE location LIKE '%Los Angeles%'
+GROUP BY Product;
+
+#8.Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+SELECT
+location,
+COUNT(orderID) 
+FROM BIT_DB.JanSales
+WHERE location LIKE '%New York%'
+AND length(orderId) = 6
+AND orderId <> 'Order ID'
+GROUP BY location
+HAVING COUNT(orderID) >= 3; 
+
+#9.How many of each type of headphone were sold in February?
+SELECT
+product,
+SUM(quantity)
+FROM FebSales
+WHERE product LIKE '%headphone%'
+GROUP BY Product
+
+#10. Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT
+product,
+SUM(quantity) * price as revenue
+FROM JanSales
+GROUP BY product
+ORDER BY revenue DESC
+LIMIT 1;
+
+
+
+
+
