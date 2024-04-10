@@ -1,9 +1,14 @@
+#In this data exploratory project, I used SQL Lite Studio to a query a database with multiple tables to gain a better understanding of customer and order data. 
+
+
+#1. How many orders were placed in January
 SELECT COUNT(*)
 FROM BIT_DB.JanSales
 WHERE length(orderId) = 6
 AND orderId <> 'Order ID';
 
 
+#2. How many of those orders were for an iPhone?
 SELECT COUNT(*)
 FROM BIT_DB.JanSales
 WHERE length(orderId) = 6
@@ -11,6 +16,7 @@ AND orderId <> 'Order ID'
 AND Product = 'iPhone';
 
 
+#3. Select the customer account numbers for all the orders that were placed in February.
 SELECT acctnum
 FROM BIT_DB.customers
 WHERE order_id IN
@@ -19,7 +25,7 @@ WHERE order_id IN
      WHERE length(orderId) = 6
      AND orderId <> 'Order ID');
      
-
+#4. Which product was the cheapest one sold in January, and what was the price? 
 SELECT product, 
 MIN(price)
 FROM BIT_DB.JanSales
@@ -27,7 +33,7 @@ GROUP BY product
 ORDER BY MIN(price)
 LIMIT 1;
 
-
+#5. What is the total revenue for each product sold in January? 
 SELECT
 product,
 SUM(Quantity) * price as revenue
@@ -35,7 +41,7 @@ FROM BIT_DB.JanSales
 GROUP BY product;
 
 
- 
+#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 SELECT
 product,
 SUM(Quantity) as num_of_items_sold,
@@ -45,12 +51,4 @@ WHERE location = '548 Lincoln St, Seattle, WA 98101'
 GROUP BY product;
 
 
-SELECT 
-COUNT(acctnum),
-AVG(Quantity* price)
-FROM BIT_DB.Febsales f
-LEFT JOIN BIT_DB.customers c
-ON f.orderid = c.order_id
-WHERE Quantity > 2
-AND length(orderId) = 6
-AND orderId <> 'Order ID';
+
