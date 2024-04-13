@@ -1,0 +1,110 @@
+# For this SQL project, I downloaded Spotify data from Kaggle.
+
+# Then I created a table in SQL Lite Studio
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+# Next, I inserted the data  into the table
+
+# Finally, I performed data exploratory analysis
+
+# For this query, I determined the tracks that had a popularity rate of 90 or above, and I ordered the result by popularity in descending order.
+SELECT 
+track_name,  
+popularity
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90
+ORDER BY popularity DESC;
+
+#For this query, I determined the artist with the most tracks.
+SELECT
+artist_name,
+COUNT(track_name)
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY COUNT(track_name) DESC
+LIMIT 1;
+
+#For this query, I determined the average energy for tracks that had a popularity rate of over 90. Furthermore, I ordered the results by popularity in descending order and then by average energy in descending order. 
+SELECT
+ROUND(AVG(energy),1) as average_energy,
+track_name,
+popularity
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90
+GROUP BY track_name
+ORDER BY popularity DESC, average_energy DESC;
+
+
+#For this query, I determined the top 10 loudest songs. and I found the average danceabilty for these songs. I then ordered the songs by their loudness rate in descending order.
+SELECT
+track_name,
+loudness,
+AVG(danceability)
+FROM BIT_DB.Spotifydata
+GROUP BY track_name
+ORDER BY loudness DESC
+LIMIT 10;
+
+
+#For this query, I determined the average duration of tracks that had popularity rate of over 90. Then, I orderd the results by average duration in descending order.
+SELECT
+track_name,
+popularity,
+AVG(duration_ms)
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90
+GROUP BY track_name, popularity
+ORDER BY AVG(duration_ms) DESC;
+
+
+#For this query, I determined the top ten popular tracks that had a positivity rate of 0.5 or less and a popularity rate of 90 or above. I ordered the results by popularity in descending order.
+SELECT
+track_name,
+popularity
+FROM BIT_DB.Spotifydata
+WHERE valence <= 0.50
+AND popularity >= 90
+ORDER BY popularity DESC
+LIMIT 10;
+
+
+#For this query, I determined the track that contained the most spoken words.
+SELECT
+track_name,
+speechiness
+FROM BIT_DB.Spotifydata
+ORDER BY speechiness DESC
+LIMIT 1;
+
+
+#For ths query, I ranked the tracks with the most tempo for each artist.
+SELECT
+artist_name,
+track_name,
+tempo,
+DENSE_RANK() OVER(PARTITION BY artist_name ORDER BY tempo DESC) as ranking
+FROM BIT_DB.Spotifydata;
+
+
+
+
+
