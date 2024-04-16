@@ -1,0 +1,191 @@
+# First, I dowloaded the chinook dataset, which represents a digital media store. 
+# This dataset contains informations about employess, customers, genres, media types, playlists, artists, albums, track, and invoices. 
+
+ # After I download the chinook dataset, I opened the dataset in SQL LiteStudio, and I performed exploratory data analysis to learn more about the information in the dataset.
+ 
+#Showed the customers who are not in the United States
+SELECT
+FirstName,
+LastName,
+Country
+FROM customers
+WHERE Country != 'USA';
+
+#Showed only the customers from Brazil
+SELECT
+FirstName,
+LastName,
+Country
+FROM customers
+WHERE Country = 'Brazil';
+
+#Wrote a query to find the invoices of customers who are from Brazil
+SELECT
+FirstName,
+LastName,
+InvoiceId,
+InvoiceDate,
+BillingCountry
+FROM customers c
+INNER JOIN invoices i
+ON c.customerid = i.customerid
+WHERE Country = 'Brazil';
+
+#Showed the employees who are sales agents
+SELECT *
+FROM employees
+WHERE Title = 'Sales Support Agent';
+
+#Identified the distinct list of countries from the invoice table
+SELECT DISTINCT
+BillingCountry
+FROM invoices; 
+
+#Wrote a query that shows the invoices associated with each sales agent
+SELECT
+InvoiceId,
+e.FirstName,
+e.LastName
+FROM invoices i
+INNER JOIN customers c
+ON i.customerid = c.customerid
+INNER JOIN employees e
+ON c.supportrepid = e.employeeid
+WHERE Title =  'Sales Support Agent';
+
+#Show the invoice total, customer name, country, and sales agent name for all invoices and customers
+SELECT
+Total,
+c.FirstName,
+C.LastName,
+Country,
+e.FirstName,
+e.LastName
+FROM invoices i
+INNER JOIN customers c
+ON i.customerid = c.customerid
+INNER JOIN employees e
+ON c.supportrepid = e.employeeid
+WHERE Title =  'Sales Support Agent';
+
+#Wrote a query to determine how many invoices were there in 2009
+SELECT COUNT(InvoiceId) as num_of_invoices
+FROM invoices
+WHERE strftime('%Y', InvoiceDate) = '2009';
+
+#Wrote a query to determine the total sales in 2009
+SELECT SUM(UnitPrice * Quantity) as total_sales
+FROM invoices i
+INNER JOIN invoice_items ii
+ON i.invoiceid = ii.invoiceid
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+#Showed the purchased track name with each invoice line ID. Ordered the result by invoice line ID in ascending order. 
+SELECT
+InvoiceLineId,
+Name
+FROM invoice_items ii
+INNER JOIN tracks t
+ON ii.trackid = t.trackid
+ORDER BY InvoiceLineId ;
+
+#Showed the purchased track name and artist name with each invoice Line ID. Ordered the result by invoice line ID in ascending order
+SELECT
+InvoiceLineId,
+t.Name as track_name,
+ar.Name as artist_name
+FROM artists ar
+INNER JOIN albums al
+ON ar.artistid = al.artistid
+INNER JOIN tracks t
+ON al.albumid = t.albumid
+INNER JOIN invoice_items ii
+ON t.trackid = ii.trackid
+ORDER BY InvoiceLineId;
+
+#Showed all the tracks with the album name, media type, and genre
+SELECT
+t.name AS Track_name,
+Title as Album_name,
+m.name as Media_type,
+g.name as Genre
+FROM tracks t
+INNER JOIN albums al
+ON t.albumid = al.albumid
+INNER JOIN media_types m
+ON t.mediatypeid = m.mediatypeid
+INNER JOIN genres g
+ON t.genreid = g.genreid;
+
+#Wrote a query to determine the total sales made by each sales agent
+SELECT
+e.FirstName as employee_first_name,
+e.LastName as employee_last_name,
+ROUND(SUM(UnitPrice * Quantity),2) as total_sales
+FROM invoice_items ii
+INNER JOIN invoices i
+ON ii.invoiceid = i.invoiceid
+INNER JOIN customers c
+ON i.customerid = c.customerid
+INNER JOIN employees e
+ON c.supportrepid = e.employeeid
+WHERE Title = 'Sales Support Agent'
+GROUP BY employee_first_name, employee_last_name;
+
+#Wrote a query to determine which sales agent made the most dollars in sales in 2009
+SELECT
+e.FirstName as employee_first_name,
+e.LastName as employee_last_name,
+ROUND(SUM(UnitPrice * Quantity),2) as total_sales
+FROM invoice_items ii
+INNER JOIN invoices i
+ON ii.invoiceid = i.invoiceid
+INNER JOIN customers c
+ON i.customerid = c.customerid
+INNER JOIN employees e
+ON c.supportrepid = e.employeeid
+WHERE Title = 'Sales Support Agent'
+AND InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+GROUP BY employee_first_name, employee_last_name
+ORDER BY total_sales DESC
+LIMIT 1;
+
+#Wrote a query to determine which city has more than two customers
+SELECT
+COUNT(CustomerId) as num_of_customers,
+City
+FROM customers
+GROUP BY City
+HAVING  num_of_customers > 1
+ORDER BY City;
+
+
+#Wrote a query to determine the top 3 genres with most total sales
+SELECT
+ROUND(SUM(ii.UnitPrice * Quantity),2) as total_sales,
+g.name as Genre
+FROM genres g
+INNER JOIN tracks t
+ON g.genreid= t.genreid
+INNER JOIN invoice_items ii
+ON t.trackid = ii.trackid
+GROUP BY Genre
+ORDER BY total_sales DESC
+LIMIT 3;
+
+
+#Wrote a query to determine which artist has the most albums
+SELECT
+ar.name as Artist,
+COUNT(Albumid) as num_of_albums
+FROM artists ar
+INNER JOIN albums al
+ON ar.artistid = al.artistid
+GROUP BY Artist
+ORDER BY num_of_albums DESC
+LIMIt 1;
+
+
+
+
+
