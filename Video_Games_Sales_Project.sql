@@ -1,6 +1,6 @@
 #Dowloaded dataset from Kaggle
 #This is data on video game sales
-#Peformed exploratory data analysis to acquire knowledge about the dataset.
+#Peformed exploratory data analysis in MYSQL to acquire knowledge about the data.
 
 
 # What was the most popular genre in North America FROM 2015 to  2020
