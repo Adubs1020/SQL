@@ -1,5 +1,5 @@
 # First, I dowloaded the chinook dataset, which represents a digital media store. 
-# This dataset contains informations about employess, customers, genres, media types, playlists, artists, albums, track, and invoices. 
+# This dataset contains information about employess, customers, genres, media types, playlists, artists, albums, track, and invoices. 
 
  # After I download the chinook dataset, I opened the dataset in SQL LiteStudio, and I performed exploratory data analysis to learn more about the information in the dataset.
  
