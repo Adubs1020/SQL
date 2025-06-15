@@ -1,0 +1,71 @@
+This query returns the top 3 product sizes that had the most sales but are currently out of stock.
+
+SELECT 
+  s.size,
+  SUM(a.amount) AS total_sales
+FROM sale_report s
+JOIN amazon_sale_report a
+  ON s.sku_code = a.sku
+WHERE LOWER(s.size) != 'free'
+  AND s.stock = 0
+  AND a.status NOT ILIKE 'cancelled'
+  AND a.amount IS NOT NULL
+GROUP BY s.size
+ORDER BY total_sales DESC
+LIMIT 3;
+
+
+This query returns the top 2 colors by sales that are XXL and are currently out of stock.
+
+SELECT 
+  s.color,
+  SUM(amount) AS total_sales
+FROM sale_report s
+JOIN amazon_sale_report a
+  ON s.sku_code = a.sku
+WHERE s.size = 'XXL'                        
+  AND s.stock = 0                       
+  AND a.status NOT ILIKE 'cancelled'     
+  AND a.amount IS NOT NULL                 
+GROUP BY s.color
+ORDER BY total_sales DESC
+LIMIT 2;
+
+
+This query returns the top 2 colors by sales that are L and are currently out of stock
+
+SELECT 
+  s.color,
+  SUM(amount) AS total_sales
+FROM sale_report s
+JOIN amazon_sale_report a
+  ON s.sku_code = a.sku
+WHERE s.size = 'L'                        
+  AND s.stock = 0                         
+  AND a.status NOT ILIKE 'cancelled'     
+  AND a.amount IS NOT NULL                 
+GROUP BY s.color
+ORDER BY total_sales DESC
+LIMIT 2;
+
+
+This query returns the top 2 colors by sales that are M and are currently out of stock
+
+SELECT 
+  s.color,
+  SUM(amount) AS total_sales
+FROM sale_report s
+JOIN amazon_sale_report a
+  ON s.sku_code = a.sku
+WHERE s.size = 'M'                        
+  AND s.stock = 0                         
+  AND a.status NOT ILIKE 'cancelled'     
+  AND a.amount IS NOT NULL                 
+GROUP BY s.color
+ORDER BY total_sales DESC
+LIMIT 2;
+
+
+
+
+
