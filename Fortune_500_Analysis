@@ -1,0 +1,56 @@
+--Count the number of technology companies
+
+SELECT COUNT(*)
+FROM fortune_companies
+WHERE industry = 'Technology'
+
+
+--Determine which technology company has the lowest average employee tenure
+
+WITH cte1 AS (
+SELECT company_name
+FROM fortune_companies
+WHERE industry = 'Technology'),
+						   
+     cte2 AS (
+SELECT company_name, MIN(avg_employee_tenure) as shortest_avg_employee_tenure
+FROM fortune_companies
+GROUP BY company_name)
+
+SELECT cte1.company_name, shortest_avg_employee_tenure
+FROM cte1,cte2
+ORDER BY shortest_avg_employee_tenure
+LIMIT 1;
+
+
+--Determine which Technology companies offer health care beneifts
+
+SELECT company_name,healthcare_benefits
+FROM  fortune_companies
+WHERE industry = 'Technology'
+
+--Order the technology companies by paid time off days in descending order
+
+SELECT company_name,paid_time_off_days
+FROM  fortune_companies
+WHERE industry = 'Technology'
+ORDER BY paid_time_off_days DESC
+
+--Order the technology companies by maternity_leave_weeks in descending order
+
+SELECT company_name,maternity_leave_weeks
+FROM  fortune_companies
+WHERE industry = 'Technology'
+ORDER BY maternity_leave_weeks DESC;
+
+
+--Determine the average paid time off days for technology companies
+SELECT ROUND(AVG(paid_time_off_days),2) AS average_paid_time_off_days
+FROM fortune_companies
+WHERE industry = 'Technology';
+
+
+--Determine the average maternity_leave_weeks for technology companies
+SELECT ROUND(AVG(maternity_leave_weeks),2) AS average_maternity_leave_weeks
+FROM fortune_companies
+WHERE industry = 'Technology';
